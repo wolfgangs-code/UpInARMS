@@ -28,11 +28,19 @@ def main():
 
 def getAllData(id):
 	p = 1
-	r = requests.get(buildURL(id, p))
-	jsn = json.loads(r.text)
-	f = open("agencyID" + str(id) + "-" + str(p) + ".json", "w")
-	f.write(json.dumps(jsn))
-	f.close
+	while True:
+		r = requests.get(buildURL(id, p))
+		jsn = json.loads(r.text)
+		f = open("agencyID" + str(id) + "-" + str(p) + ".json", "w")
+		f.write(json.dumps(jsn, indent=4))
+		f.close
+		if jsn["page"] < jsn["total"]:
+			p = p + 1
+			print("Downloading page" + p + " of " + jsn["total"])
+			continue
+		else:
+			print("Download complete.")
+			break
 
 
 
