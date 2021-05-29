@@ -105,7 +105,7 @@ def genIDList():
 
 def toLog(msg):
     log = open("log.txt", "a")
-    log.write("msg")
+    log.write(msg)
     log.close()
 
 
