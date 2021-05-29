@@ -11,7 +11,7 @@ def main():
 		ids = genIDList()
 		for i in ids:
 			print(str(i).ljust(3) + " - " + ids[i])
-			print("--- - ---\n0   - Download All " + str(len(ids)) + " Agencies\n")
+		print("--- - ---\n0   - Download All " + str(len(ids)) + " Agencies\n")
 		while True:
 			selection = input("Select an Agency ID >")
 			try:
