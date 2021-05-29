@@ -11,7 +11,7 @@ def main():
 		ids = genIDList()
 		for i in ids:
 			print(str(i).ljust(3) + " - " + ids[i])
-		print("--- - ---\n0   - Download All " + str(len(ids)) + " Agencies\n")
+		print("--- - ---\n0   - Download All " + str(len(ids)) + " Agencies (SLOW)\n")
 		while True:
 			selection = input("Select an Agency ID >")
 			try:
@@ -38,7 +38,7 @@ def getAllData(id, name):
 	date = datetime.datetime.now().strftime("%Y-%m-%d")
 	p = 1
 	records = {}
-	print("Downloading " + name)
+	print("Downloading " + name + "[" + str(id) +"]")
 	while True:
 		r = requests.get(buildURL(id, p))
 		jsn = json.loads(r.text)
@@ -54,7 +54,7 @@ def getAllData(id, name):
 		f.close
 		if jsn["page"] < jsn["total"]:
 			p += 1
-			print("-Downloading page " + str(p) + " of " + str(jsn["total"]))
+			print("-page " + str(p) + " of " + str(jsn["total"]))
 			continue
 		else:
 			break
