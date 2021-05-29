@@ -38,6 +38,7 @@ def getAllData(id):
 	date = datetime.datetime.now().strftime("%Y-%m-%d")
 	p = 1
 	records = {}
+	print("Downloading Agency " + str(id))
 	while True:
 		r = requests.get(buildURL(id, p))
 		jsn = json.loads(r.text)
@@ -51,11 +52,10 @@ def getAllData(id):
 		f.write(json.dumps(file, indent=4))
 		f.close
 		if jsn["page"] < jsn["total"]:
-			print("Downloading page " + str(p) + " of " + str(jsn["total"]))
 			p += 1
+			print("-Downloading page " + str(p) + " of " + str(jsn["total"]))
 			continue
 		else:
-			print("Download complete.")
 			break
 
 
