@@ -28,21 +28,22 @@ def main():
 		selection = sys.argv[1]
 	if selection == 0:
 		for i in ids:
-			getAllData(i)
+			getAllData(i, ids[i])
 	else:
-		getAllData(selection)
+		getAllData(selection, ids[selection])
 	# exit()
 
 
-def getAllData(id):
+def getAllData(id, name):
 	date = datetime.datetime.now().strftime("%Y-%m-%d")
 	p = 1
 	records = {}
-	print("Downloading Agency " + str(id))
+	print("Downloading Agency " + name)
 	while True:
 		r = requests.get(buildURL(id, p))
 		jsn = json.loads(r.text)
 		file = {"agencyID": id,
+				"agencyName": name,
 				"records": jsn["records"],
 				"scrapeDate": date,
 				"data": records}
