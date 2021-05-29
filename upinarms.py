@@ -10,7 +10,7 @@ def main():
 	if len(sys.argv) < 2:
 		ids = genIDList()
 		for i in ids:
-			print(str(i).ljust(3) + " - " + ids[i])
+			print(str(i).ljust(3) + " - " + ids[i][0])
 		print("--- - ---\n0   - Download All " + str(len(ids)) + " Agencies (SLOW)\n")
 		while True:
 			selection = input("Select an Agency ID >")
@@ -28,22 +28,24 @@ def main():
 		selection = sys.argv[1]
 	if selection == 0:
 		for i in ids:
-			getAllData(i, ids[i])
+			getAllData(i, ids[i][0], ids[i][1])
 	else:
-		getAllData(selection, ids[selection])
+		getAllData(selection, ids[selection][0], ids[selection][1])
 	# exit()
 
 
-def getAllData(id, name):
+def getAllData(id, name, st):
 	date = datetime.datetime.now().strftime("%Y-%m-%d")
 	p = 1
 	records = {}
-	print("Downloading " + name + "[" + str(id) +"]")
+	print("Downloading " + name + " [" + str(id) +"]")
 	while True:
 		r = requests.get(buildURL(id, p))
 		jsn = json.loads(r.text)
 		file = {"agencyID": id,
 				"agencyName": name,
+				"agencyCountry": "USA", # So there's no ambiguity
+				"agencyState": st,
 				"records": jsn["records"],
 				"scrapeDate": date,
 				"data": records}
@@ -89,7 +91,8 @@ def genIDList():
 	agents = getAgencyData()
 	ids = {}
 	for i in agents:
-		ids[i["Id"]] = i["Name"]
+		state = i["DisplayingName"][:2]
+		ids[i["Id"]] = [i["Name"], state]
 	return ids
 
 
