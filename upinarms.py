@@ -8,7 +8,7 @@ import sys
 
 
 def main():
-	toLog("[UpInArms @ " + str(datetime.datetime.today()) + "]\n")
+	toLog("[" + str(datetime.datetime.today()) + "]\n")
 	if len(sys.argv) < 2:
 		ids = genIDList()
 		for i in ids:
@@ -31,10 +31,13 @@ def main():
 		selection = sys.argv[1]
 	if selection == 0:
 		for i in ids:
+			watch = time.time()
 			getAllData(i, ids[i][0], ids[i][1])
 	else:
+		watch = time.time()
 		getAllData(selection, ids[selection][0], ids[selection][1])
-	toLog("\n")
+	timer = "{:.2f}".format(time.time() - watch)
+	toLog(" = Completed Successfully (" + timer + ")\n\n")
 
 
 def getAllData(id, name, st):
