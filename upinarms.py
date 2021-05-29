@@ -28,7 +28,7 @@ def main():
 				print("Invalid agency ID.")
 				continue
 	else:
-		selection = sys.argv[1]
+		selection = int(sys.argv[1])
 	if selection == 0:
 		for i in ids:
 			watch = time.time()
