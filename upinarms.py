@@ -30,8 +30,8 @@ def main():
 	else:
 		selection = int(sys.argv[1])
 	if selection == 0:
-		watch = time.time()
 		for i in ids:
+			watch = time.time()
 			getAllData(i, ids[i][0], ids[i][1])
 	else:
 		watch = 0
@@ -65,16 +65,16 @@ def getAllData(id, name, st):
 				"data": records}
 		for row in jsn["rows"]:
 			records[row.pop("id")] = row.pop("cell")
+		f = open("output/agencyID-" + str(id) + ".json", "w")
+		f.write(json.dumps(file, indent=4))
+		f.close
 		timer = "{:.2f}".format(time.time() - watch)
 		if jsn["page"] < jsn["total"]:
 			p += 1
-			print("\r- page " + str(p) + " of " + str(jsn["total"]))
+			print("- page " + str(p) + " of " + str(jsn["total"]))
 			continue
 		else:
 			toLog(" - Downloaded [" + str(id) + "] " + name + " (" + timer + "s)\n")
-			f = open("output/agencyID-" + str(id) + ".json", "w")
-			f.write(json.dumps(file, indent=4))
-			f.close
 			break
 
 
