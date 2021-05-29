@@ -3,6 +3,7 @@ import datetime
 import requests
 import re
 import json
+import sys
 
 
 def main():
@@ -34,7 +35,9 @@ def getAllData(id):
         r = requests.get(buildURL(id, p))
         jsn = json.loads(r.text)
         file = {"agencyID": id,
-                "records": jsn["records"], "date": date, "data": records}
+                "records": jsn["records"],
+                "scrapeDate": date,
+                "data": records}
         for row in jsn["rows"]:
             records[row.pop("id")] = row.pop("cell")
         f = open("agencyID-" + str(id) + ".json", "w")
