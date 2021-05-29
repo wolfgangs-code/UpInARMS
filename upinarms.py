@@ -1,3 +1,5 @@
+from random import random
+import datetime
 import requests
 import re
 import json
@@ -25,7 +27,25 @@ def main():
 
 
 def getAllData(id):
-    print("amogus")
+	print(buildURL(id))
+	print("amogus")
+
+# Constructs a valid URL to access the past 2048 records from an agency over a decade
+def buildURL(id):
+	url = "https://portal.arms.com/Home/DetailsRequest?page=1"
+	crimes = ""
+	for i in range(1,28):
+		crimes += "&CrimeTypesIds=" + str(i)
+	x = datetime.datetime.now()
+	y = x - datetime.timedelta(days=3650)
+	toDay  = x.strftime("%m/%d/%y")
+	bDay =   y.strftime("%m/%d/%y")
+	rows =   2048
+	fake =   "{:.16f}".format(random())
+	# Bob the Builder
+	comp  = url + "&rows=" + str(rows) + "&AgencyId=" + str(id) + crimes
+	comp += "&fakeID=" + fake + "&beginDate=" + bDay + "&endDate=" + toDay
+	return comp
 
 
 def getAgencyData():
