@@ -38,7 +38,7 @@ def getAllData(id, name):
 	date = datetime.datetime.now().strftime("%Y-%m-%d")
 	p = 1
 	records = {}
-	print("Downloading Agency " + name)
+	print("Downloading " + name)
 	while True:
 		r = requests.get(buildURL(id, p))
 		jsn = json.loads(r.text)
