@@ -27,39 +27,44 @@ def main():
 
 
 def getAllData(id):
-	p = 1
-	while True:
-		r = requests.get(buildURL(id, p))
-		jsn = json.loads(r.text)
-		f = open("agencyID" + str(id) + "-" + str(p) + ".json", "w")
-		f.write(json.dumps(jsn, indent=4))
-		f.close
-		if jsn["page"] < jsn["total"]:
-			print("Downloading page " + str(p) + " of " + str(jsn["total"]))
-			p += 1
-			continue
-		else:
-			print("Download complete.")
-			break
-
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    p = 1
+    records = {}
+    while True:
+        r = requests.get(buildURL(id, p))
+        jsn = json.loads(r.text)
+        file = {"agencyID": id,
+                "records": jsn["records"], "date": date, "data": records}
+        for row in jsn["rows"]:
+            records[row.pop("id")] = row.pop("cell")
+        f = open("agencyID-" + str(id) + ".json", "w")
+        f.write(json.dumps(file, indent=4))
+        f.close
+        if jsn["page"] < jsn["total"]:
+            print("Downloading page " + str(p) + " of " + str(jsn["total"]))
+            p += 1
+            continue
+        else:
+            print("Download complete.")
+            break
 
 
 # Constructs a valid URL to access the past 2048 records from an agency over a decade
 def buildURL(id, page):
-	url = "https://portal.arms.com/Home/DetailsRequest?page=" + str(page)
-	crimes = ""
-	for i in range(1,28):
-		crimes += "&CrimeTypesIds=" + str(i)
-	x = datetime.datetime.now()
-	y = x - datetime.timedelta(days=3650)
-	toDay  = x.strftime("%m/%d/%y")
-	bDay =   y.strftime("%m/%d/%y")
-	rows =   2048
-	fake =   "{:.16f}".format(random())
-	# Bob the Builder
-	comp  = url + "&rows=" + str(rows) + "&AgencyId=" + str(id) + crimes
-	comp += "&fakeID=" + fake + "&beginDate=" + bDay + "&endDate=" + toDay
-	return comp
+    url = "https://portal.arms.com/Home/DetailsRequest?page=" + str(page)
+    crimes = ""
+    for i in range(1, 28):
+        crimes += "&CrimeTypesIds=" + str(i)
+    x = datetime.datetime.now()
+    y = x - datetime.timedelta(days=365 * 20)
+    toDay = x.strftime("%m/%d/%y")
+    bDay = y.strftime("%m/%d/%y")
+    rows = 2 ** 12
+    fake = "{:.16f}".format(random())
+    # Bob the Builder
+    comp = url + "&rows=" + str(rows) + "&AgencyId=" + str(id) + crimes
+    comp += "&fakeID=" + fake + "&beginDate=" + bDay + "&endDate=" + toDay
+    return comp
 
 
 def getAgencyData():
