@@ -9,8 +9,8 @@ import sys
 
 def main():
 	toLog("[" + str(datetime.datetime.today()) + "]\n")
+	ids = genIDList()
 	if len(sys.argv) < 2:
-		ids = genIDList()
 		for i in ids:
 			print(str(i).ljust(3) + " - " + ids[i][0])
 		print("--- - ---\n0   - Download All " +
@@ -83,7 +83,7 @@ def buildURL(id, page):
 	y = x - datetime.timedelta(days=365 * 20)
 	toDay = x.strftime("%m/%d/%y")
 	bDay = y.strftime("%m/%d/%y")
-	rows = 3000
+	rows = 4096
 	fake = "{:.16f}".format(random())
 	# Bob the Builder
 	comp = url + "&rows=" + str(rows) + "&AgencyId=" + str(id) + crimes
