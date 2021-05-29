@@ -58,9 +58,9 @@ def getAllData(id, name, st):
         f = open("output/agencyID-" + str(id) + ".json", "w")
         f.write(json.dumps(file, indent=4))
         f.close
-        timer = time.time() - watch
+        timer = "{:.2f}".format(time.time() - watch)
         toLog(" - Downloaded [" + str(id) + "] " +
-              name + " (" + str(timer)[:4] + "s)")
+              name + " (" + timer + "s)\n")
         if jsn["page"] < jsn["total"]:
             p += 1
             print("-page " + str(p) + " of " + str(jsn["total"]))
