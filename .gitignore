@@ -1,6 +1,6 @@
 # UpInARMS
 agencyID*.json
-output.json
+output/*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

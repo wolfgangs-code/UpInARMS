@@ -43,7 +43,7 @@ def getAllData(id):
 				"data": records}
 		for row in jsn["rows"]:
 			records[row.pop("id")] = row.pop("cell")
-		f = open("agencyID-" + str(id) + ".json", "w")
+		f = open("output/agencyID-" + str(id) + ".json", "w")
 		f.write(json.dumps(file, indent=4))
 		f.close
 		if jsn["page"] < jsn["total"]:
