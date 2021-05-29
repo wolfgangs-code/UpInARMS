@@ -49,7 +49,12 @@ def getAllData(id, name, st):
 	records = {}
 	print("Downloading " + name + " [" + str(id) + "]")
 	while True:
-		r = requests.get(buildURL(id, p))
+		try:
+			r = requests.get(buildURL(id, p))
+		except requests.exceptions.ConnectionError:
+			toLog(" + Connection Error! Retrying...")
+			time.sleep(1)
+			continue
 		jsn = json.loads(r.text)
 		file = {"agencyID": id,
 				"agencyName": name,
