@@ -26,7 +26,11 @@ def main():
 				continue
 	else:
 		selection = sys.argv[1]
-	getAllData(selection)
+	if selection == 0:
+		for i in ids:
+			getAllData(i)
+	else:
+		getAllData(selection)
 	# exit()
 
 
