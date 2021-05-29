@@ -23,7 +23,7 @@ def main():
             print("Invalid agency ID.")
             continue
     getAllData(selection)
-    exit()
+    # exit()
 
 
 def getAllData(id):
@@ -35,8 +35,8 @@ def getAllData(id):
 		f.write(json.dumps(jsn, indent=4))
 		f.close
 		if jsn["page"] < jsn["total"]:
-			p = p + 1
-			print("Downloading page" + p + " of " + jsn["total"])
+			print("Downloading page " + str(p) + " of " + str(jsn["total"]))
+			p += 1
 			continue
 		else:
 			print("Download complete.")
