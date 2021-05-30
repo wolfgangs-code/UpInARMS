@@ -52,7 +52,7 @@ def getAllData(id, name, st):
 		try:
 			r = requests.get(buildURL(id, p))
 		except requests.exceptions.ConnectionError:
-			toLog(" + Connection Error! Retrying...")
+			toLog(" + Connection Error! Retrying...\n")
 			time.sleep(1)
 			continue
 		jsn = json.loads(r.text)
