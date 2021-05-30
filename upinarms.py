@@ -51,11 +51,15 @@ def getAllData(id, name, st):
 	while True:
 		try:
 			r = requests.get(buildURL(id, p))
+			jsn = json.loads(r.text)
 		except requests.exceptions.ConnectionError:
 			toLog(" + Connection Error! Retrying...\n")
 			time.sleep(1)
 			continue
-		jsn = json.loads(r.text)
+		except json.decoder.JSONDecodeError:
+			toLog(" + JSON Decoding Error!\n")
+			p += 1
+			continue
 		file = {"agencyID": id,
 				"agencyName": name,
 				"agencyCountry": "USA",  # So there's no ambiguity
