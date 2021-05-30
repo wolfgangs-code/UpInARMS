@@ -116,23 +116,12 @@ def buildURL(id, page):
 	return comp
 
 
-def getAgencyData():
-	#====================================#
-	# Gets an up-to-date of all agencies #
-	# directly from ARMS.                #
-	# TODO: Find a better method of this #
-	#====================================#
+def genIDList():
 	r = requests.get("https://portal.arms.com/")
 	pattern = r"agenciesItems:(.*),\s"
 	rgx = re.search(pattern, r.text).group(1)
-	return json.loads(rgx)
-
-
-def genIDList():
-	# TODO: Merge getAgencyData into this function
-	agents = getAgencyData()
 	ids = {}
-	for i in agents:
+	for i in json.loads(rgx):
 		state = i["DisplayingName"][:2]
 		ids[i["Id"]] = [i["Name"], state]
 	return ids
