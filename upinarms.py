@@ -41,7 +41,10 @@ def main():
 	else:
 		for n in sys.argv:
 			if n != sys.argv[0]:
-				getAllData(n, ids[int(n)][0], ids[int(n)][1])
+				try: getAllData(n, ids[int(n)][0], ids[int(n)][1])
+				except KeyError:
+					print("AgencyID {} does not exist!".format(n))
+					toLog(" + Failed to download invalid agencyID [{}]\n".format(n))
 	#=================================#
 	# Post-download procedure         #
 	# Everything has been successful! #
