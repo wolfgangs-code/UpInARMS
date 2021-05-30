@@ -47,7 +47,7 @@ def getAllData(id, name, st):
 	watch = time.time()
 	p = 1
 	records = {}
-	print("Downloading " + name + " [" + str(id) + "]")
+	print("Downloading {} [{}]".format(name,str(id)))
 	while True:
 		try:
 			r = requests.get(buildURL(id, p))
@@ -75,10 +75,10 @@ def getAllData(id, name, st):
 		timer = "{:.2f}".format(time.time() - watch)
 		if jsn["page"] < jsn["total"]:
 			p += 1
-			print("- page " + str(p) + " of " + str(jsn["total"]))
+			print("- page {} of {}".format(str(p), str(jsn["total"])))
 			continue
 		else:
-			toLog(" - Downloaded [" + str(id) + "] " + name + " (" + timer + "s)\n")
+			toLog(" - Downloaded [{}] {} ({}s)\n".format(str(id),name,timer))
 			break
 
 
@@ -95,8 +95,8 @@ def buildURL(id, page):
 	rows = 4096
 	fake = "{:.16f}".format(random())
 	# Bob the Builder
-	comp = url + "&rows=" + str(rows) + "&AgencyId=" + str(id) + crimes
-	comp += "&fakeID=" + fake + "&beginDate=" + bDay + "&endDate=" + toDay
+	comp = url + "&rows={}&AgencyId={}{}".format(str(rows), str(id), crimes)
+	comp += "&fakeID={}&beginDate={}&endDate={}".format(fake, bDay, toDay)
 	return comp
 
 
