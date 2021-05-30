@@ -32,7 +32,7 @@ def main():
 			for i in ids:
 				getAllData(i, ids[i][0], ids[i][1])
 		else:
-			watch = 0
+			watch = False
 			getAllData(selection, ids[selection][0], ids[selection][1])
 	else:
 		watch = time.time()
@@ -41,7 +41,7 @@ def main():
 				getAllData(n, ids[int(n)][0], ids[int(n)][1])
 
 	msg = " = Completed Successfully"
-	if watch != 0:
+	if watch != False:
 		msg += " (" + ("{:.2f}".format(time.time() - watch)) + ")"
 	toLog(msg + "\n\n")
 
