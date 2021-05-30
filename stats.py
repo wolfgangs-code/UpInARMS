@@ -6,7 +6,7 @@ def stats():
 	toLog("[" + str(datetime.datetime.today()) + "]\n = ")
 	toLog("[UpInARMS Data Statistics]", True)
 	toLog(countRecords(False), True)
-	print("\n 1 - Record count Leaderboard")
+	print(" 1 - Record count Leaderboard")
 	print(" - - -\n 0 - Exit\n")
 	while True:
 		opt = input(" Choose an Option: >")
@@ -41,7 +41,7 @@ def countRecords(total = False):
 		item = (count, jsn["agencyID"], jsn["agencyName"])
 		lb.append(item)
 		r += count
-	tot = "\n > {:,} Records in Total".format(r)
+	tot = "\n > {:,} Records in Total\n".format(r)
 	os.chdir("../")
 	return tot if not total else lb
 
