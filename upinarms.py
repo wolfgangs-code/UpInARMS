@@ -27,15 +27,19 @@ def main():
 			else:
 				print("Invalid agency ID.")
 				continue
+		if selection == 0:
+			watch = time.time()
+			for i in ids:
+				getAllData(i, ids[i][0], ids[i][1])
+		else:
+			watch = 0
+			getAllData(selection, ids[selection][0], ids[selection][1])
 	else:
-		selection = int(sys.argv[1])
-	if selection == 0:
 		watch = time.time()
-		for i in ids:
-			getAllData(i, ids[i][0], ids[i][1])
-	else:
-		watch = 0
-		getAllData(selection, ids[selection][0], ids[selection][1])
+		for n in sys.argv:
+			if n != sys.argv[0]:
+				getAllData(n, ids[int(n)][0], ids[int(n)][1])
+
 	msg = " = Completed Successfully"
 	if watch != 0:
 		msg += " (" + ("{:.2f}".format(time.time() - watch)) + ")"
