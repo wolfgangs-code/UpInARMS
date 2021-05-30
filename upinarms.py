@@ -44,16 +44,21 @@ def main():
 		for n in sys.argv:
 			if n != sys.argv[0]:
 				getAllData(n, ids[int(n)][0], ids[int(n)][1])
-
+	#=================================#
+	# Post-download procedure         #
+	# Everything has been successful! #
+	#=================================#
 	msg = " = Completed Successfully"
 	if watch != False:
 		msg += " (" + ("{:.2f}".format(time.time() - watch)) + ")"
 	toLog(msg + "\n\n")
+	exit()
 
 
 def getAllData(id, name, st):
 	date = datetime.datetime.now().strftime("%Y-%m-%d")
 	watch = time.time()
+	# Starting page number: Keep at 1!
 	p = 1
 	records = {}
 	print("Downloading {} [{}]".format(name,str(id)))
@@ -66,9 +71,10 @@ def getAllData(id, name, st):
 			time.sleep(1)
 			continue
 		except json.decoder.JSONDecodeError:
-			toLog(" + JSON Decoding Error!\n")
+			toLog(" + JSON Decoding Error! Skipping page {} in AgencyID {}\n".format(p,id))
 			p += 1
 			continue
+		# Prepare the JSON file's contents
 		file = {"agencyID": id,
 				"agencyName": name,
 				"agencyCountry": "USA",  # So there's no ambiguity
@@ -76,6 +82,7 @@ def getAllData(id, name, st):
 				"records": jsn["records"],
 				"scrapeDate": date,
 				"data": records}
+		# Dictionary trash
 		for row in jsn["rows"]:
 			records[row.pop("id")] = row.pop("cell")
 		f = open("output/agencyID-" + str(id) + ".json", "w")
@@ -110,6 +117,11 @@ def buildURL(id, page):
 
 
 def getAgencyData():
+	#====================================#
+	# Gets an up-to-date of all agencies #
+	# directly from ARMS.                #
+	# TODO: Find a better method of this #
+	#====================================#
 	r = requests.get("https://portal.arms.com/")
 	pattern = r"agenciesItems:(.*),\s"
 	rgx = re.search(pattern, r.text).group(1)
@@ -117,6 +129,7 @@ def getAgencyData():
 
 
 def genIDList():
+	# TODO: Merge getAgencyData into this function
 	agents = getAgencyData()
 	ids = {}
 	for i in agents:
