@@ -10,6 +10,7 @@ import sys
 def main():
 	toLog("[" + str(datetime.datetime.today()) + "]\n")
 	ids = genIDList()
+	watch = time.time()
 	# If no CLI arguments are given, run the UI
 	if len(sys.argv) < 2:
 		for i in ids:
@@ -40,7 +41,6 @@ def main():
 		for i in ids:
 			getAllData(i, ids[i][0], ids[i][1])
 	else:
-		watch = time.time()
 		for n in sys.argv:
 			if n != sys.argv[0]:
 				getAllData(n, ids[int(n)][0], ids[int(n)][1])
