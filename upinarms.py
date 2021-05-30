@@ -30,8 +30,8 @@ def main():
 	else:
 		selection = int(sys.argv[1])
 	if selection == 0:
+		watch = time.time()
 		for i in ids:
-			watch = time.time()
 			getAllData(i, ids[i][0], ids[i][1])
 	else:
 		watch = 0
