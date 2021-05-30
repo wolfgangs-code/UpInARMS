@@ -10,8 +10,10 @@ import sys
 def main():
 	toLog("[" + str(datetime.datetime.today()) + "]\n")
 	ids = genIDList()
+	# If no CLI arguments are given, run the UI
 	if len(sys.argv) < 2:
 		for i in ids:
+			# List every agency by 'ID - Name'
 			print(str(i).ljust(3) + " - " + ids[i][0])
 		print("--- - ---\n0   - Download All " +
 			  str(len(ids)) + " Agencies (SLOW)\n")
@@ -34,6 +36,9 @@ def main():
 		else:
 			watch = False
 			getAllData(selection, ids[selection][0], ids[selection][1])
+	elif int(sys.argv[1]) == 0:
+		for i in ids:
+			getAllData(i, ids[i][0], ids[i][1])
 	else:
 		watch = time.time()
 		for n in sys.argv:
