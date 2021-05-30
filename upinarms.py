@@ -20,13 +20,11 @@ def main():
 			  str(len(ids)) + " Agencies (SLOW)\n")
 		while True:
 			selection = input("Select an Agency ID >")
-			try:
-				selection = int(selection)
+			try: selection = int(selection)
 			except:
 				print("The ID must be an integer.")
 				continue
-			if selection in ids or {0}:
-				break
+			if selection in ids or {0}: break
 			else:
 				print("Invalid agency ID.")
 				continue
