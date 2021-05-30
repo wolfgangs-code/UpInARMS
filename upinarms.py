@@ -78,7 +78,7 @@ def getAllData(id, name, st):
 			print("- page {} of {}".format(str(p), str(jsn["total"])))
 			continue
 		else:
-			toLog(" - Downloaded [{}] {} ({}s)\n".format(str(id),name,timer))
+			toLog(" - Downloaded [{}] {} ({}s)\n".format(str(id), name, timer))
 			break
 
 
