@@ -109,7 +109,7 @@ def buildURL(id, page):
 	y = x - datetime.timedelta(days=365 * 20)
 	toDay = x.strftime("%m/%d/%y")
 	bDay = y.strftime("%m/%d/%y")
-	rows = 4096
+	rows = (4096)
 	fake = "{:.16f}".format(random())
 	# Bob the Builder
 	comp = url + "&rows={}&AgencyId={}{}".format(str(rows), str(id), crimes)
