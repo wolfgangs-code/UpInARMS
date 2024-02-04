@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from random import random
 import datetime
 import time
